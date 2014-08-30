@@ -147,7 +147,7 @@ gtk2hs_closure_new(HsStablePtr callback)
     WHEN_DEBUG(g_debug("gtk2hs_closure_new: enter, callback=%p", callback));
     closure = g_closure_new_simple(sizeof(Gtk2HsClosure), NULL);
     /* TODO: check if we should be using invalidate or finalise notifier */
-    g_closure_add_invalidate_notifier(closure, NULL, gtk2hs_closure_invalidate);
+    g_closure_add_finalize_notifier(closure, NULL, gtk2hs_closure_invalidate);
     g_closure_set_marshal(closure, gtk2hs_closure_marshal);
 
     ((Gtk2HsClosure *)closure)->callback = callback;
